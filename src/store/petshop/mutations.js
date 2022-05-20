@@ -19,7 +19,7 @@ export function filter(state, val) {
   if (val == 0) {
     state.current_products = state.products
   } else {
-    state.current_products = state.products.filter(value => value.id == val)
+    state.current_products = state.products.filter(value => value.category.id == val)
   }
 }
 
