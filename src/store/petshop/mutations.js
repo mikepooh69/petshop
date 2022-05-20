@@ -28,18 +28,24 @@ export function setCurrentItem(state, val) {
 }
 
 export function addToCart(state) {
-  if (state.cart.length !== 0) {
-    state.cart.some((value, index) => {
-      if (!value.id == state.currentItem.id) {
-        state.cart.push(JSON.parse(JSON.stringify(state.currentItem)))
-        state.current_products[state.currentItem.index].count = 1
-      } else {
-        state.cart[index].count += 1
-      }
-    })
-  } else {
+  if (state.cart.length <= 0) {
     state.cart.push(JSON.parse(JSON.stringify(state.currentItem)))
     state.current_products[state.currentItem.index].count = 1
+  } else {
+
+    let index = null
+    state.cart.forEach((value, i) => {
+      if (value.id == state.currentItem.id) {
+        index = i
+      }
+    })
+    if (index !== null) {
+      state.cart[index].count += 1
+    } else {
+      state.cart.push(JSON.parse(JSON.stringify(state.currentItem)))
+      state.current_products[state.currentItem.index].count = 1
+    }
+
   }
 
 

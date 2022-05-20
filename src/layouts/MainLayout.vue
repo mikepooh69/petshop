@@ -72,14 +72,22 @@
                 <q-item-section>
                   <q-item-label lines="1">{{ item.name }}</q-item-label>
                   <q-item-label class="text-subtitle2">
-                    precio: {{ item.price.toLocaleString('en') }}
+                    precio: ${{ item.price.toLocaleString('en') }}
                   </q-item-label>
                   <q-item-label class="text-subtitle2">
-                    Subtotal: {{ item.price.toLocaleString('en') }}
+                    Subtotal: ${{ item.price.toLocaleString('en') }}
                   </q-item-label>
                   <q-item-label class="text-subtitle2">
                     cantidad: {{ item.count }}
                   </q-item-label>
+                </q-item-section>
+                <q-item-section side>
+                  <q-icon
+                    name="close"
+                    class="cursor-pointer"
+                    color="red"
+                    @click="remove(i)"
+                  />
                 </q-item-section>
               </q-item>
             </q-list>
@@ -168,6 +176,9 @@ export default {
   },
 
   methods: {
+    remove(index) {
+      this.$store.state.petshop.cart.splice(index, 1)
+    },
     setNameProducts() {
       this.$store.commit('petshop/filter', 0)
       this.$store.commit('petshop/setName', 'Todas las categorias')
